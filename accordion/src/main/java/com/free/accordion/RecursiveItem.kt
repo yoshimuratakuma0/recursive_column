@@ -9,7 +9,6 @@ class RecursiveItem<T>(
     internal val children: MutableList<RecursiveItem<T>> = mutableListOf(),
 ) {
     internal var isExpanded by mutableStateOf(false)
-
     fun addChild(child: RecursiveItem<T>) {
         children.add(child)
     }

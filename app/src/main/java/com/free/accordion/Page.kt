@@ -1,8 +1,10 @@
 package com.free.accordion
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -40,17 +42,20 @@ fun Screen(items: List<RecursiveItem<ItemData>>) {
             modifier = Modifier.fillMaxSize(),
             contentPadding = padding,
         ) {
-            items(items.size) { index ->
-                val item = items[index]
+            items(items) { item ->
                 AccordionItem(
                     modifier = Modifier
                         .padding(16.dp),
                     item = item,
-                ) { itemData ->
-                    Text(
-                        text = itemData.title,
-                        modifier = Modifier.padding(8.dp),
-                    )
+                ) { itemData, level ->
+                    Box(
+                        modifier = Modifier.padding(start = (16 * level).dp),
+                    ) {
+                        Text(
+                            text = itemData.title,
+                            modifier = Modifier.padding(8.dp),
+                        )
+                    }
                 }
             }
         }
@@ -70,7 +75,11 @@ fun ScreenPreview() {
 
 class ItemData(
     val title: String,
-)
+) {
+    override fun toString(): String {
+        return title
+    }
+}
 
 private fun buildRootItem1(): RecursiveItem<ItemData> {
     val root = RecursiveItem(
@@ -116,6 +125,26 @@ private fun buildRootItem2(): RecursiveItem<ItemData> {
     val grandChild4 = RecursiveItem(
         itemData = ItemData(title = "ネアンデルタール人"),
     )
+
+    val ggrandChild1 = RecursiveItem(
+        itemData = ItemData(title = "黄色人種"),
+    )
+
+    val ggrandChild2 = RecursiveItem(
+        itemData = ItemData(title = "白色人種"),
+    )
+
+    val gggrandChild1 = RecursiveItem(
+        itemData = ItemData(title = "日本人"),
+    )
+    val gggrandChild2 = RecursiveItem(
+        itemData = ItemData(title = "中国人"),
+    )
+
+    grandChild3.addChild(ggrandChild1)
+    grandChild3.addChild(ggrandChild2)
+    ggrandChild1.addChild(gggrandChild1)
+    ggrandChild1.addChild(gggrandChild2)
 
     child1.addChild(grandChild1)
     child1.addChild(grandChild2)
