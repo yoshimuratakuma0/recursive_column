@@ -17,9 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun <T> AccordionItem(
+fun <T>AccordionItem(
     modifier: Modifier,
-    item: Item<T>,
+    item: RecursiveData<T>,
     content: @Composable (T) -> Unit,
 ) {
     Column(
@@ -35,7 +35,7 @@ fun <T> AccordionItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            content(item.itemData)
+            content(item.value)
             if (item.children.isNotEmpty()) {
                 if (item.isExpanded) {
                     Icon(
@@ -59,7 +59,7 @@ fun <T> AccordionItem(
                             .padding(start = 16.dp),
                         item = child,
                     ) {
-                        content(child.itemData)
+                        content(child.value)
                     }
                 }
             }
