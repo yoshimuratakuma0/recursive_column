@@ -49,7 +49,7 @@ fun Screen(items: List<RecursiveItem<ItemData>>) {
                 ) { itemData ->
                     Text(
                         text = itemData.title,
-                        modifier = Modifier.padding(8.dp)
+                        modifier = Modifier.padding(8.dp),
                     )
                 }
             }
