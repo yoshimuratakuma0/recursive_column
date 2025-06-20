@@ -11,19 +11,20 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RecursiveItem(
+fun <T> AccordionItem(
     modifier: Modifier,
-    item: Item,
+    item: Item<T>,
+    content: @Composable (T) -> Unit,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .animateContentSize(),
     ) {
         Row(
             modifier = Modifier
@@ -34,11 +35,7 @@ fun RecursiveItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            Text(
-                text = item.itemData.title,
-                modifier = Modifier
-                    .padding(8.dp),
-            )
+            content(item.itemData)
             if (item.children.isNotEmpty()) {
                 if (item.isExpanded) {
                     Icon(
@@ -57,12 +54,13 @@ fun RecursiveItem(
         if (item.children.isNotEmpty()) {
             if (item.isExpanded) {
                 item.children.forEach { child ->
-                    RecursiveItem(
+                    AccordionItem(
                         modifier = Modifier
-                            .padding(start = 16.dp)
-                            .animateContentSize(),
+                            .padding(start = 16.dp),
                         item = child,
-                    )
+                    ) {
+                        content(child.itemData)
+                    }
                 }
             }
         }

@@ -9,11 +9,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,7 +29,7 @@ fun Page() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Screen(items: List<Item>) {
+fun Screen(items: List<Item<ItemData>>) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -46,12 +43,16 @@ fun Screen(items: List<Item>) {
         ) {
             items(items.size) { index ->
                 val item = items[index]
-                RecursiveItem(
+                AccordionItem(
                     modifier = Modifier
-                        .padding(16.dp)
-                        .animateContentSize(),
+                        .padding(16.dp),
                     item = item,
-                )
+                ) { itemData ->
+                    Text(
+                        text = itemData.title,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
             }
         }
     }
@@ -68,18 +69,11 @@ fun ScreenPreview() {
     )
 }
 
-class Item(
-    val itemData: ItemData,
-    val children: MutableList<Item>,
-) {
-    var isExpanded by mutableStateOf(false)
-}
-
 data class ItemData(
     val title: String,
 )
 
-private fun buildRootItem1(): Item {
+private fun buildRootItem1(): Item<ItemData> {
     val root = Item(
         itemData = ItemData(title = "猫"),
         children = mutableListOf(),
@@ -102,7 +96,7 @@ private fun buildRootItem1(): Item {
     return root
 }
 
-private fun buildRootItem2(): Item {
+private fun buildRootItem2(): Item<ItemData> {
     val root = Item(
         itemData = ItemData(title = "ヒト科"),
         children = mutableListOf(),
