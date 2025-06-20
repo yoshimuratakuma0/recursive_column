@@ -5,8 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
 class RecursiveItem<T>(
-    val itemData: T,
-    val children: MutableList<RecursiveItem<T>> = mutableListOf(),
+    internal val itemData: T,
+    internal val children: MutableList<RecursiveItem<T>> = mutableListOf(),
 ) {
-    var isExpanded by mutableStateOf(false)
+    internal var isExpanded by mutableStateOf(false)
+
+    fun addChild(child: RecursiveItem<T>) {
+        children.add(child)
+    }
 }

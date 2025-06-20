@@ -85,9 +85,9 @@ private fun buildRootItem1(): RecursiveItem<ItemData> {
     val child3 = RecursiveItem(
         itemData = ItemData(title = "スコティッシュフォールド"),
     )
-    root.children.add(child1)
-    root.children.add(child2)
-    root.children.add(child3)
+    root.addChild(child1)
+    root.addChild(child2)
+    root.addChild(child3)
     return root
 }
 
@@ -101,8 +101,8 @@ private fun buildRootItem2(): RecursiveItem<ItemData> {
     val child2 = RecursiveItem(
         itemData = ItemData(title = "ヒト属"),
     )
-    root.children.add(child1)
-    root.children.add(child2)
+    root.addChild(child1)
+    root.addChild(child2)
 
     val grandChild1 = RecursiveItem(
         itemData = ItemData(title = "チンパンジー"),
@@ -117,9 +117,9 @@ private fun buildRootItem2(): RecursiveItem<ItemData> {
         itemData = ItemData(title = "ネアンデルタール人"),
     )
 
-    child1.children.add(grandChild1)
-    child1.children.add(grandChild2)
-    child2.children.add(grandChild3)
-    child2.children.add(grandChild4)
+    child1.addChild(grandChild1)
+    child1.addChild(grandChild2)
+    child2.addChild(grandChild3)
+    child2.addChild(grandChild4)
     return root
 }
