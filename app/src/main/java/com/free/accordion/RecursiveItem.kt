@@ -13,10 +13,6 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -29,12 +25,11 @@ fun RecursiveItem(
     Column(
         modifier = modifier,
     ) {
-        var isExpanded by remember { mutableStateOf(false) }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
-                    isExpanded = !isExpanded
+                    item.isExpanded = !item.isExpanded
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -45,7 +40,7 @@ fun RecursiveItem(
                     .padding(8.dp),
             )
             if (item.children.isNotEmpty()) {
-                if (isExpanded) {
+                if (item.isExpanded) {
                     Icon(
                         imageVector = Icons.Default.KeyboardArrowUp,
                         contentDescription = null,
@@ -60,7 +55,7 @@ fun RecursiveItem(
         }
 
         if (item.children.isNotEmpty()) {
-            if (isExpanded) {
+            if (item.isExpanded) {
                 item.children.forEach { child ->
                     RecursiveItem(
                         modifier = Modifier
