@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Accordion"
 include(":app")
- 
+include(":accordion")

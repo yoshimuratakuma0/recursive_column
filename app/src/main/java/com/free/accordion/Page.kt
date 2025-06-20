@@ -8,11 +8,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,7 +28,7 @@ fun Page() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Screen(items: List<RecursiveItemData>) {
+fun Screen(items: List<RecursiveItem<ItemData>>) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -75,25 +72,18 @@ class ItemData(
     val title: String,
 )
 
-class RecursiveItemData(
-    override val value: ItemData,
-    override val children: MutableList<RecursiveItemData> = mutableListOf(),
-) : RecursiveData<ItemData> {
-    override var isExpanded: Boolean by mutableStateOf(false)
-}
-
-private fun buildRootItem1(): RecursiveItemData {
-    val root = RecursiveItemData(
-        value = ItemData(title = "猫"),
+private fun buildRootItem1(): RecursiveItem<ItemData> {
+    val root = RecursiveItem(
+        itemData = ItemData(title = "猫"),
     )
-    val child1 = RecursiveItemData(
-        value = ItemData(title = "ミヌエット"),
+    val child1 = RecursiveItem(
+        itemData = ItemData(title = "ミヌエット"),
     )
-    val child2 = RecursiveItemData(
-        value = ItemData(title = "マンチカン"),
+    val child2 = RecursiveItem(
+        itemData = ItemData(title = "マンチカン"),
     )
-    val child3 = RecursiveItemData(
-        value = ItemData(title = "スコティッシュフォールド"),
+    val child3 = RecursiveItem(
+        itemData = ItemData(title = "スコティッシュフォールド"),
     )
     root.children.add(child1)
     root.children.add(child2)
@@ -101,30 +91,30 @@ private fun buildRootItem1(): RecursiveItemData {
     return root
 }
 
-private fun buildRootItem2(): RecursiveItemData {
-    val root = RecursiveItemData(
-        value = ItemData(title = "ヒト科"),
+private fun buildRootItem2(): RecursiveItem<ItemData> {
+    val root = RecursiveItem(
+        itemData = ItemData(title = "ヒト科"),
     )
-    val child1 = RecursiveItemData(
-        value = ItemData(title = "パン属"),
+    val child1 = RecursiveItem(
+        itemData = ItemData(title = "パン属"),
     )
-    val child2 = RecursiveItemData(
-        value = ItemData(title = "ヒト属"),
+    val child2 = RecursiveItem(
+        itemData = ItemData(title = "ヒト属"),
     )
     root.children.add(child1)
     root.children.add(child2)
 
-    val grandChild1 = RecursiveItemData(
-        value = ItemData(title = "チンパンジー"),
+    val grandChild1 = RecursiveItem(
+        itemData = ItemData(title = "チンパンジー"),
     )
-    val grandChild2 = RecursiveItemData(
-        value = ItemData(title = "ボノボ"),
+    val grandChild2 = RecursiveItem(
+        itemData = ItemData(title = "ボノボ"),
     )
-    val grandChild3 = RecursiveItemData(
-        value = ItemData(title = "ヒト"),
+    val grandChild3 = RecursiveItem(
+        itemData = ItemData(title = "ヒト"),
     )
-    val grandChild4 = RecursiveItemData(
-        value = ItemData(title = "ネアンデルタール人"),
+    val grandChild4 = RecursiveItem(
+        itemData = ItemData(title = "ネアンデルタール人"),
     )
 
     child1.children.add(grandChild1)
